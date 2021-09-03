@@ -11,7 +11,7 @@ def text_plain(s): return Response(s, mimetype='text/plain')
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=['POST'])
 def home():
     json_body = request.get_json(silent=True)
     print(json_body)
