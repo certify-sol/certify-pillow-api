@@ -40,7 +40,7 @@ def custom_certi():
     # certi_lines = json_body['content']
 
     certiB64img = make_certi(
-        lines=json_body['content'],
+        lines=json_body['content'].split('\n'),
         heading=json_body['heading'],
         qr_link=json_body['sig']
     )
