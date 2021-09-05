@@ -11,7 +11,7 @@ def text_plain(s): return Response(s, mimetype='text/plain')
 app = Flask(__name__)
 
 
-@app.route('/', methods=['POST'])
+@app.route('/pillow', methods=['POST'])
 def home():
     json_body = request.get_json(silent=True)
     print(json_body)
@@ -27,6 +27,23 @@ def home():
     ]
 
     certiB64img = make_certi(certi_lines, qr_link=json_body['sig'])
+    # print(certiB64img)
+
+    return text_plain(certiB64img)
+
+
+@app.route('/pillow-custom', methods=['POST'])
+def custom_certi():
+    json_body = request.get_json(silent=True)
+    print(json_body)
+
+    # certi_lines = json_body['content']
+
+    certiB64img = make_certi(
+        lines=json_body['content'],
+        heading=json_body['heading'],
+        qr_link=json_body['sig']
+    )
     # print(certiB64img)
 
     return text_plain(certiB64img)
